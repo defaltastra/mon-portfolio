@@ -702,6 +702,74 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize loading screen
     initLoadingScreen();
+
+    // Grab-to-scroll for projects
+    const container = document.querySelector('.projects-container');
+    const scroll = document.querySelector('.projects-scroll');
+    if (container && scroll) {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            container.classList.add('grabbing');
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+            container.classList.remove('grabbing');
+        });
+
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+            container.classList.remove('grabbing');
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 2;
+            container.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch support
+        container.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+        }, { passive: true });
+
+        container.addEventListener('touchend', () => {
+            isDown = false;
+        });
+
+        container.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - container.offsetLeft;
+            const walk = (x - startX) * 2;
+            container.scrollLeft = scrollLeft - walk;
+        }, { passive: true });
+
+        // Navigation Arrows Logic
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+
+        if (prevBtn && nextBtn) {
+            const cardWidth = 350 + 32; // card width + gap (2rem = 32px)
+            
+            prevBtn.addEventListener('click', () => {
+                container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            });
+
+            nextBtn.addEventListener('click', () => {
+                container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            });
+        }
+    }
 });
 
 window.addEventListener('load', () => {

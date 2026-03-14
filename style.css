@@ -719,31 +719,59 @@ section {
    ========================================== */
 
 .projects-container {
-    overflow-x: auto;
+    overflow-x: hidden;
     padding: 2rem 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--accent) var(--bg-secondary);
+    cursor: grab;
+    user-select: none;
+}
+
+.projects-container:active {
+    cursor: grabbing;
 }
 
 .projects-container::-webkit-scrollbar {
-    height: 10px;
-}
-
-.projects-container::-webkit-scrollbar-track {
-    background: var(--bg-secondary);
-    border-radius: 10px;
-}
-
-.projects-container::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    border-radius: 10px;
+    display: none;
 }
 
 .projects-scroll {
     display: flex;
     gap: 2rem;
     padding-bottom: 1rem;
-    animation: scrollProjects 20s linear infinite;
+    width: max-content;
+}
+
+.projects-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn:hover {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.1);
+}
+
+.nav-btn svg {
+    width: 30px;
+    height: 30px;
 }
 
 .projects-scroll:hover {
@@ -760,7 +788,7 @@ section {
 }
 
 .project-card {
-    min-width: 350px;
+    flex: 0 0 350px;
     background: var(--bg-secondary);
     border-radius: 15px;
     overflow: hidden;
@@ -1206,7 +1234,13 @@ body.rtl .contact-details {
     }
 
     .project-card {
-        min-width: 300px;
+        flex: 0 0 300px;
+    }
+
+    @keyframes scrollProjects {
+        100% {
+            transform: translateX(calc(-300px * 4 - 8rem));
+        }
     }
 }
 
@@ -1331,7 +1365,13 @@ body.rtl .contact-details {
     }
 
     .project-card {
-        min-width: 280px;
+        flex: 0 0 280px;
+    }
+
+    @keyframes scrollProjects {
+        100% {
+            transform: translateX(calc(-280px * 4 - 8rem));
+        }
     }
 
     .modal {
@@ -1411,7 +1451,13 @@ body.rtl .contact-details {
     }
 
     .project-card {
-        min-width: 250px;
+        flex: 0 0 250px;
+    }
+
+    @keyframes scrollProjects {
+        100% {
+            transform: translateX(calc(-250px * 4 - 8rem));
+        }
     }
 
     .project-image {
@@ -1532,7 +1578,13 @@ body.rtl .contact-details {
     }
 
     .project-card {
-        min-width: 220px;
+        flex: 0 0 220px;
+    }
+
+    @keyframes scrollProjects {
+        100% {
+            transform: translateX(calc(-220px * 4 - 8rem));
+        }
     }
 
     .about-content {
@@ -1576,7 +1628,13 @@ body.rtl .contact-details {
     }
 
     .project-card {
-        min-width: 200px;
+        flex: 0 0 200px;
+    }
+
+    @keyframes scrollProjects {
+        100% {
+            transform: translateX(calc(-200px * 4 - 8rem));
+        }
     }
 
     .small-video {
